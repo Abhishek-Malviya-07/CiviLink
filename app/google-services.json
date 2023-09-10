@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "286560678062",
+    "project_id": "civilink-8b1a7",
+    "storage_bucket": "civilink-8b1a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:286560678062:android:c762bd8a32e673f18e3d3f",
+        "android_client_info": {
+          "package_name": "com.example.civilink"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNGI1jlfb7w-MMTSufhgdi6qdUh2f8RDo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

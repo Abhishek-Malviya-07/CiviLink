@@ -1,9 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <!-- Base application theme. -->
-    <style name="Base.Theme.CiviLink" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.civilink" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/clr_bg</item>
+        <item name="colorPrimaryDark">#EB040C39</item>
+        <item name="colorAccent">#EB040C39</item>
     </style>
 
-    <style name="Theme.CiviLink" parent="Base.Theme.CiviLink" />
+    <style name="Theme.civilink" parent="Base.Theme.civilink" />
 </resources>
