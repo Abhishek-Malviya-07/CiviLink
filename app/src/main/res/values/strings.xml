@@ -23,4 +23,20 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="enter_your_number">Enter your Number</string>
+    <string name="get_otp">Get Otp</string>
+    <string name="enter">Enter</string>
+    <string name="otp_verification">OTP Verification</string>
+    <string name="user_name">User Name</string>
+    <string name="number">number</string>
+    <string name="profile_information">Profile Information</string>
+    <string name="set_profile">Set profile</string>
+    <string name="_91">+91</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="type_a_message">Type a message....</string>
+    <string name="name">name</string>
+    <string name="sender_side_message">sender side message</string>
+    <string name="delete_for_everyone">delete for everyone</string>
+    <string name="delete_for_me">delete for me</string>
+    <string name="cancel">cancel</string>
 </resources>

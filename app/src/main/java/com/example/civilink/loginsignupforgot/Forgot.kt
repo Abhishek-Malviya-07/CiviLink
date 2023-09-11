@@ -1,22 +1,30 @@
-package com.example.infobyte
+package com.example.civilink.loginsignupforgot
 
+
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.example.infobyte.databinding.ActivityForgotBinding
+import androidx.annotation.RequiresApi
+import com.airbnb.lottie.LottieAnimationView
+import com.example.civilink.R
+import com.example.civilink.databinding.ActivityForgotBinding
 import com.google.firebase.auth.FirebaseAuth
 
 class Forgot : AppCompatActivity() {
     private var binding : ActivityForgotBinding? = null
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding =  ActivityForgotBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
         val auth = FirebaseAuth.getInstance()
+        // Hide the system navigation bar
+        val animationView : LottieAnimationView = findViewById(R.id.ani)
+        animationView.playAnimation()
 
-// Get the user's email address from the input field or wherever you have it
         val email = binding!!.EmailAddress
         binding!!.reset.setOnClickListener {
             val proBar = binding!!.progressBar
