@@ -37,7 +37,7 @@
         android:padding="30dp"
         android:layout_marginTop="20dp"
         app:cardBackgroundColor="#FE9EB2C4"
-        app:cardCornerRadius="5dp"
+        app:cardCornerRadius="10dp"
         android:outlineAmbientShadowColor="@color/cardview_shadow_start_color"
         android:layout_height="wrap_content" >
 
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_gravity="center"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/clr_bg"
                 android:textColor="@color/white"
                 android:background="@drawable/login_button_bk"
                 android:text="Reset" />

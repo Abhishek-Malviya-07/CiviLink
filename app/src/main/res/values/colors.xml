@@ -13,4 +13,5 @@
     <color name="reset_bg_normal_color">#3a3636</color>
     <color name="reset_bg_pressed_color">#191818</color>
     <color name="mainbg">#1D2E5A</color>
+    <color name="teal_700">#39D2F8</color>
 </resources>

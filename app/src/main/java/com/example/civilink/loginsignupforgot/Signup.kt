@@ -1,6 +1,5 @@
-package com.example.civilink
+package com.example.civilink.loginsignupforgot
 
-import android.R
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -9,6 +8,8 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.airbnb.lottie.LottieAnimationView
+import com.example.civilink.MainActivity
+import com.example.civilink.ProfileActivity
 import com.example.civilink.databinding.ActivitySignupBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -82,7 +83,7 @@ class SignUp_activity : AppCompatActivity() {
         val currentUser = fireBaseAuth.currentUser
         if (currentUser != null) {
             if (currentUser.isEmailVerified) {
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, ProfileActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
