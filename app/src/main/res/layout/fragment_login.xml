@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginFragment">
+    tools:context=".SLF.LoginFragment">
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        app:layout_constraintTop_toTopOf="parent">
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="120dp"
             android:layout_height="120dp"
@@ -48,6 +47,8 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/editTextTextEmailAddress2"
                         android:padding="10dp"
+                        android:fontFamily="@font/roboto_light"
+                        android:textColor="#FFFFFF"
                         android:lines="1"
                         android:singleLine="true"
                         />
@@ -59,8 +60,6 @@
                     android:text="@string/password"
                     android:layout_marginTop="10dp"
                     android:textSize="20sp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginLeft="10dp"
                     android:fontFamily="@font/advent_pro_medium"
                     android:textColor="@color/white"
                     />
@@ -74,15 +73,16 @@
                     >
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextNumberPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:id="@+id/editTextNumberPassword"
                         android:ems="10"
-                        android:lines="1"
-                        android:singleLine="true"
                         android:inputType="textPassword"
-                        />
+                        android:lines="1"
+                        android:fontFamily="@font/roboto_light"
+                        android:padding="10dp"
+                        android:singleLine="true"
+                        android:textColor="#FFFFFF" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <TextView
                     android:layout_width="wrap_content"

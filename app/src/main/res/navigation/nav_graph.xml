@@ -6,7 +6,7 @@
     app:startDestination="@id/signUpFragment">
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.civilink.SignUpFragment"
+        android:name="com.example.civilink.SLF.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" >
         <action
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.civilink.LoginFragment"
+        android:name="com.example.civilink.SLF.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="com.example.civilink.ForgotPasswordFragment"
+        android:name="com.example.civilink.SLF.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
 </navigation>

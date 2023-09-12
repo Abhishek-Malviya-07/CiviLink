@@ -1,4 +1,4 @@
-package com.example.civilink
+package com.example.civilink.SLF
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.LottieAnimationView
+import com.example.civilink.ProfileActivity
+import com.example.civilink.WorkSpace
 import com.example.civilink.databinding.FragmentLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot

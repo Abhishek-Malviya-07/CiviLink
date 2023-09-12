@@ -1,4 +1,4 @@
-package com.example.civilink
+package com.example.civilink.SLF
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
