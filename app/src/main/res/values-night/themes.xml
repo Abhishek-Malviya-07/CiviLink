@@ -2,9 +2,9 @@
 
     <!-- Base application theme. -->
     <style name="Base.Theme.civilink" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/clr_bg</item>
-        <item name="colorPrimaryDark">#EB040C39</item>
-        <item name="colorAccent">#EB040C39</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">#EBF7F8FC</item>
+        <item name="colorAccent">#EBF9F9FB</item>
     </style>
 
     <style name="Theme.civilink" parent="Base.Theme.civilink" />
