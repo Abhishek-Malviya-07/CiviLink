@@ -4,6 +4,7 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/handshakeappicon"
@@ -13,29 +14,26 @@
         android:theme="@style/Theme.civilink"
         tools:targetApi="31">
         <activity
+            android:name=".WorkSpace"
+            android:exported="false" />
+        <activity
             android:name=".SplashScreenActivity"
-            android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".loginsignupforgot.Forgot"
             android:exported="false" />
         <activity
-            android:name=".loginsignupforgot.SignUp_activity"
-            android:exported="false"/>
-        <activity
             android:name=".ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".loginsignupforgot.Login_Activity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"

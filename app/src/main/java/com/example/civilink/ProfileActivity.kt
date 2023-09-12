@@ -131,14 +131,11 @@ class ProfileActivity : AppCompatActivity() {
                             // User's profile data exists, check if it contains all necessary fields
                             if (dataSnapshot.child("uid").exists() && dataSnapshot.child("name").exists()) {
                                 // User's profile data is complete, navigate to main activity
-                                startActivity(Intent(this@ProfileActivity, MainActivity::class.java))
+                                startActivity(Intent(this@ProfileActivity, WorkSpace::class.java))
                                 finish()
                             } else {
-                                // User's profile data is incomplete, stay on the profile activity
+
                             }
-                        } else {
-                            // User's profile data doesn't exist, simply finish the current activity
-                            finish()
                         }
                     }
 

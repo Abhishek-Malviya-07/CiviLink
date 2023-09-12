@@ -7,7 +7,6 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.civilink.loginsignupforgot.Login_Activity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -35,10 +34,10 @@ class SplashScreenActivity : AppCompatActivity() {
             val currentUser = auth.currentUser
             if (currentUser != null && currentUser.isEmailVerified) {
                 // User is signed in and email is verified, navigate to MainActivity
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, WorkSpace::class.java))
             } else {
                 // User is not signed in or email is not verified, navigate to LoginActivity
-                startActivity(Intent(this, Login_Activity::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
             }
 
             // Close the splash screen activity to prevent going back to it
