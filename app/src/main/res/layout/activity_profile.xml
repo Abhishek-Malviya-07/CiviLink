@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/mainbackground">
+    android:background="@drawable/combo_bg">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
@@ -23,12 +23,13 @@
         app:layout_constraintVertical_bias="0.154" />
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/advent_pro_medium"
         android:text="@string/profile_information"
         android:textAlignment="center"
-        android:textColor="@color/teal_700"
+        android:textColor="#FBF9F9"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,50 +38,50 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_image"
         app:layout_constraintVertical_bias="0.058" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        android:layout_margin="10dp"
-        android:elevation="10dp"
-        app:cardBackgroundColor="#FCFBFB"
+        android:layout_gravity="center"
+        android:layout_margin="30dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.157"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image"
-        app:layout_constraintVertical_bias="0.316">
-
-        <LinearLayout
+        app:layout_constraintTop_toTopOf="parent">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/user_name"
+            android:textSize="20sp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/advent_pro_medium"
+            android:textColor="@color/white"
+            />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/otp_box"
+            android:padding="10dp"
+            android:textColor="#373636"
+            android:textColorHint="#373636"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="30dp"
-            android:orientation="vertical">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/otp_box"
-                android:padding="10dp"
-
-                android:id="@+id/name"
-                android:textColorHint="#373636"
-                android:hint="@string/user_name"
-                android:textColor="#373636"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/set"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:backgroundTint="#EB1679A3"
-                android:layout_gravity="center"
-                android:text="@string/set_profile" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
+            android:layout_margin="10dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/mainbg"
+            android:textColor="@color/white"
+            android:text="@string/set_profile" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

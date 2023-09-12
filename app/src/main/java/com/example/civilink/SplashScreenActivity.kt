@@ -27,20 +27,13 @@ class SplashScreenActivity : AppCompatActivity() {
 
         val splashScreenView = findViewById<ImageView>(R.id.splashImage)
         splashScreenView.startAnimation(fadeInAnimation)
-
-        // Delayed navigation to the next activity after 3 seconds (3000 milliseconds)
         Handler().postDelayed({
-            // Check if the user is already signed in and their email is verified
             val currentUser = auth.currentUser
             if (currentUser != null && currentUser.isEmailVerified) {
-                // User is signed in and email is verified, navigate to MainActivity
                 startActivity(Intent(this, WorkSpace::class.java))
             } else {
-                // User is not signed in or email is not verified, navigate to LoginActivity
                 startActivity(Intent(this, MainActivity::class.java))
             }
-
-            // Close the splash screen activity to prevent going back to it
             finish()
         }, 3000) // 3 seconds delay
     }
