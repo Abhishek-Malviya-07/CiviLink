@@ -142,17 +142,9 @@ class SignUpFragment : Fragment() {
         if (requestCode == RC_SIGN_IN) {
             val result = data?.let { Auth.GoogleSignInApi.getSignInResultFromIntent(it) }
             if (result!!.isSuccess) {
-                navController.navigate(R.id.action_signUpFragment_to_loginFragment)
-                dialog!!.dismiss()
-                showCustomLottieToast(
-                    R.raw.donelottie, // Change to your desired icon
-                    "Linking with google...",
-                )
                 val account = result.signInAccount
                 firebaseAuthWithGoogle(account!!)
-                requireActivity().finish()
             } else {
-                navController.navigate(R.id.action_signUpFragment_to_loginFragment)
                 dialog!!.dismiss()
                 showCustomSeekBarNotification(
                     R.raw.networkerror, // Change to your desired icon
@@ -169,6 +161,15 @@ class SignUpFragment : Fragment() {
                     showCustomLottieToast(
                         R.raw.donelottie, // Change to your desired icon
                         "Login successful...",
+                    )
+                    val intent = Intent(requireContext(),ProfileActivity::class.java)
+                    startActivity(intent)
+                    requireActivity().finish()
+                }
+                else{
+                    showCustomSeekBarNotification(
+                        R.raw.networkerror, // Change to your desired icon
+                        "Google Sign-In failed, Network problem.",
                     )
                 }
           }
