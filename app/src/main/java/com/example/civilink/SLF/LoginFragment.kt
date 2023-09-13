@@ -65,11 +65,16 @@ class LoginFragment : Fragment() {
                     ).show()
                 }
             } else {
-                Toast.makeText(
-                    requireContext(),
-                    "Please fill both the required fields.",
-                    Toast.LENGTH_SHORT
-                ).show()
+                if(email.isEmpty()){
+                    binding.editTextTextEmailAddress2.error="*required field"
+                }
+                else if(pass.isEmpty()){
+                    binding.editTextNumberPassword.error="*required field"
+                }
+                else{
+                    binding.editTextTextEmailAddress2.error="*required field"
+                    binding.editTextNumberPassword.error="*required field"
+                }
             }
         }
     }

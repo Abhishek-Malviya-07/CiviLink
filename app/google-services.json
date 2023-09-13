@@ -13,7 +13,20 @@
           "package_name": "com.example.civilink"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "286560678062-3sbvq772nhvdv1g5c3l7ejvnunkemnth.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.civilink",
+            "certificate_hash": "9b0700d84ce757bcd22347b0cba0ff5001150a16"
+          }
+        },
+        {
+          "client_id": "286560678062-g3pvl9ldu0rboep3k0hru7jo2eralhv1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBNGI1jlfb7w-MMTSufhgdi6qdUh2f8RDo"
@@ -21,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "286560678062-g3pvl9ldu0rboep3k0hru7jo2eralhv1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
