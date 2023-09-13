@@ -85,6 +85,7 @@ class ProfileActivity : AppCompatActivity() {
                                 }
                         }
                     }
+                    Toast.makeText(this,"Internet error",Toast.LENGTH_SHORT).show()
                 }
             }
             else {
@@ -111,6 +112,8 @@ class ProfileActivity : AppCompatActivity() {
 
                 profileImage!!.setImageURI(selectedImage)
             }
+            else
+            Toast.makeText(this,"select image",Toast.LENGTH_SHORT).show()
         }
     }
     override fun onStart() {
@@ -132,8 +135,6 @@ class ProfileActivity : AppCompatActivity() {
                                 // User's profile data is complete, navigate to main activity
                                 startActivity(Intent(this@ProfileActivity, WorkSpace::class.java))
                                 finish()
-                            } else {
-
                             }
                         }
                     }
@@ -142,6 +143,10 @@ class ProfileActivity : AppCompatActivity() {
                         Toast.makeText(this@ProfileActivity,"Check your Internet connection",Toast.LENGTH_LONG).show()
                     }
                 })
+        }
+        else {
+            startActivity(Intent(this@ProfileActivity, MainActivity::class.java))
+            finish()
         }
     }
 }

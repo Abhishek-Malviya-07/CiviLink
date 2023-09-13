@@ -50,4 +50,5 @@
     <string name="login_failed">"Login failed"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_web_client_id">286560678062-3sbvq772nhvdv1g5c3l7ejvnunkemnth.apps.googleusercontent.com</string>
 </resources>

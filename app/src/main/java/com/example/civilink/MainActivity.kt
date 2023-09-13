@@ -43,13 +43,10 @@ class MainActivity : AppCompatActivity() {
         btnLogin.visibility = View.VISIBLE
         forgotText.visibility=View.GONE
         navController = findNavController(R.id.fragmentContainerView)
-        val currentDestinationId = navController.currentDestination?.id
-        if (currentDestinationId == R.id.loginFragment) {
+        if (navController.currentDestination?.id == R.id.loginFragment) {
             if (!navController.popBackStack()) {
                 navController.navigate(R.id.action_loginFragment_to_signUpFragment)
             }
-        } else if (currentDestinationId != R.id.signUpFragment) {
-            navController.navigate(R.id.action_loginFragment_to_signUpFragment)
         }
     }
 
@@ -72,9 +69,6 @@ class MainActivity : AppCompatActivity() {
             R.id.loginFragment -> {
                 btnSignUp.setBackgroundResource(R.color.clr_bg)
                 btnLogin.setBackgroundResource(R.drawable.otp_box)
-            }
-            else -> {
-                // Handle other fragments if needed
             }
         }
     }

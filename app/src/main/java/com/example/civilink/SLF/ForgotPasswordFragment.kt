@@ -19,7 +19,7 @@ class ForgotPasswordFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentForgotPasswordBinding.inflate(inflater, container, false)
         val view = binding!!.root
         auth = FirebaseAuth.getInstance()
@@ -28,9 +28,10 @@ class ForgotPasswordFragment : Fragment() {
         animationView.playAnimation()
 
         binding!!.reset.setOnClickListener {
-            val proBar = binding!!.progressBar
-            proBar.visibility = View.VISIBLE
-            val email = binding!!.EmailAddress.text.toString()
+            val email :String = binding!!.EmailAddress.text.toString()
+            if(email.isNotEmpty()) {
+                val proBar = binding!!.progressBar
+                proBar.visibility = View.VISIBLE
 
                 auth.sendPasswordResetEmail(email)
                     .addOnCompleteListener { task ->
@@ -46,11 +47,14 @@ class ForgotPasswordFragment : Fragment() {
                             // Password reset email failed to send
                             Toast.makeText(
                                 requireContext(),
-                                "Failed to send password reset email,Check Internet connection",
+                                "Failed to send password reset email, Check Email Or Check Internet connection",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
                     }
+            }else{
+                    binding!!.EmailAddress.error="*required field"
+            }
         }
         return view
     }
