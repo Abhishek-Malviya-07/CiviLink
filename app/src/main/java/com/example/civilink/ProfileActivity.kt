@@ -1,4 +1,3 @@
-@file:Suppress("DEPRECATION")
 
 package com.example.civilink
 
@@ -71,8 +70,7 @@ class ProfileActivity : AppCompatActivity() {
             if (selectedImage!= null&&name.isNotEmpty()) {
                 val reference = storage!!.reference.child("Profile").child(auth!!.uid!!)
                 reference.putFile(selectedImage!!).addOnCompleteListener{Task ->
-                    if(Task.isSuccessful)
-                    {
+                    if(Task.isSuccessful){
                         showCustomSeekBarNotification(R.raw.donelottie,"Profile created successfully")
                         reference.downloadUrl.addOnSuccessListener { uri->
                             val imageUri = uri.toString()
@@ -187,6 +185,7 @@ class ProfileActivity : AppCompatActivity() {
         // Show the custom SeekBar notification
         customSeekBarDialog.show()
     }
+
     private fun showCustomLottieToast(animationResId: Int, message: String) {
         val inflater = layoutInflater
         val layout = inflater.inflate(R.layout.custom_toast_lottie_layout, null)

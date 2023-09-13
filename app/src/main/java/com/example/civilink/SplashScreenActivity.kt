@@ -1,13 +1,16 @@
 package com.example.civilink
-
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.airbnb.lottie.LottieAnimationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -21,8 +24,8 @@ class SplashScreenActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var fadeInAnimation: Animation
-    var storage: FirebaseStorage?=null
-    var database: FirebaseDatabase?=null
+    private var storage: FirebaseStorage? = null
+    private var database: FirebaseDatabase? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,16 +33,19 @@ class SplashScreenActivity : AppCompatActivity() {
 
         auth = Firebase.auth
         database = FirebaseDatabase.getInstance()
-        storage= FirebaseStorage.getInstance()
+        storage = FirebaseStorage.getInstance()
 
         // Load the fade-in animation from XML
         fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.splash_anim)
 
         val splashScreenView = findViewById<ImageView>(R.id.splashImage)
         splashScreenView.startAnimation(fadeInAnimation)
-        Handler().postDelayed({
-            val currentUser = auth.currentUser
-            if (currentUser != null && currentUser.isEmailVerified) {
+
+        // Check for internet connectivity
+        if (isNetworkConnected()) {
+            Handler().postDelayed({
+                val currentUser = auth.currentUser
+                if (currentUser != null && currentUser.isEmailVerified) {
                     val uid = auth.currentUser!!.uid
                     database!!.reference
                         .child("users")
@@ -54,8 +60,7 @@ class SplashScreenActivity : AppCompatActivity() {
                                         startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
                                         this@SplashScreenActivity.finish()
                                     }
-                                }
-                                else{
+                                } else {
                                     startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
                                     this@SplashScreenActivity.finish()
                                 }
@@ -64,14 +69,44 @@ class SplashScreenActivity : AppCompatActivity() {
                             override fun onCancelled(databaseError: DatabaseError) {
                                 startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
                                 this@SplashScreenActivity.finish()
-                                Toast.makeText(this@SplashScreenActivity,"Check your Internet connection",
-                                    Toast.LENGTH_LONG).show()
+                                showCustomLottieToast(R.raw.networkerror, "Check Internet connection")
                             }
                         })
-            } else {
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            }
-        }, 2000) // 3 seconds delay
+                } else {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
+            }, 4000) // 2 seconds delay
+        } else {
+            // No internet connection, show a toast message or take appropriate action
+            showCustomLottieToast(R.raw.networkerror, "No Internet Connection")
+        }
+    }
+
+    private fun showCustomLottieToast(animationResId: Int, message: String) {
+        val inflater = layoutInflater
+        val layout = inflater.inflate(R.layout.custom_toast_lottie_layout, null)
+
+        // Customize the layout elements
+        val lottieAnimationView = layout.findViewById<LottieAnimationView>(R.id.lottieAnimationView)
+        val textViewMessage = layout.findViewById<TextView>(R.id.textViewMessage)
+
+        // Set the Lottie animation resource
+        lottieAnimationView.setAnimation(animationResId)
+        lottieAnimationView.playAnimation()
+
+        textViewMessage.text = message
+
+        val toast = Toast(this)
+        toast.duration = Toast.LENGTH_LONG
+        toast.view = layout
+        toast.show()
+    }
+
+    private fun isNetworkConnected(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
 }
+
