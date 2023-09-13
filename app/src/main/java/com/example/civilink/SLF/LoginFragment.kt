@@ -1,15 +1,19 @@
 package com.example.civilink.SLF
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.LottieAnimationView
 import com.example.civilink.ProfileActivity
+import com.example.civilink.R
 import com.example.civilink.WorkSpace
 import com.example.civilink.databinding.FragmentLoginBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -44,7 +48,7 @@ class LoginFragment : Fragment() {
         val animationView: LottieAnimationView = binding.ani
         animationView.playAnimation()
         fireBaseAuth = FirebaseAuth.getInstance()
-
+        val inflater = requireActivity().layoutInflater
         binding.button.setOnClickListener {
             val email = binding.editTextTextEmailAddress2.text.toString()
             val pass = binding.editTextNumberPassword.text.toString()
@@ -58,22 +62,26 @@ class LoginFragment : Fragment() {
                         handleAuthResult(result)
                     }
                 } else {
-                    Toast.makeText(
-                        requireContext(),
-                        "Password must have at least 8 characters, contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    showCustomSeekBarNotification(
+                        R.raw.errorlottie,
+                        "Password must have at least 8 characters, contain at least one uppercase, one lowercase, one number, and one special character.",
+                    )
                 }
             } else {
-                if(email.isEmpty()){
+                if(email.isEmpty() && pass.isEmpty()){
+                    showCustomSeekBarNotification(
+                        R.raw.verify,
+                        "*Email is a required field,\n*Password is a required field.",
+                    )
+                }
+                else if(email.isEmpty()){
                     binding.editTextTextEmailAddress2.error="*required field"
                 }
                 else if(pass.isEmpty()){
-                    binding.editTextNumberPassword.error="*required field"
-                }
-                else{
-                    binding.editTextTextEmailAddress2.error="*required field"
-                    binding.editTextNumberPassword.error="*required field"
+                    showCustomSeekBarNotification(
+                        R.raw.verify, // Change to your desired icon
+                        "*Password is a required field",
+                    )
                 }
             }
         }
@@ -100,26 +108,49 @@ class LoginFragment : Fragment() {
             val currentUser = fireBaseAuth.currentUser
             if (currentUser != null) {
                 if (currentUser.isEmailVerified) {
+                    showCustomLottieToast(
+                        R.raw.donelottie, // Change to your desired icon
+                        "Login successful Set your profile.",
+                    )
                     val intent = Intent(requireContext(), ProfileActivity::class.java)
                     startActivity(intent)
                     requireActivity().finish()
                 } else {
-                    Toast.makeText(
-                        requireContext(),
+                    showCustomLottieToast(
+                        R.raw.verify, // Change to your desired icon
                         "Please verify your email to continue",
-                        Toast.LENGTH_LONG
-                    ).show()
+                        )
                     fireBaseAuth.signOut()
                 }
             }
         } else {
-            Toast.makeText(
-                requireContext(),
-                "Login unsuccessful",
-                Toast.LENGTH_SHORT
-            ).show()
+            showCustomLottieToast(
+                R.raw.errorlottie, // Change to your desired icon
+                "Login failed",
+            )
         }
     }
+
+    private fun showCustomLottieToast(animationResId: Int, message: String) {
+        val inflater = layoutInflater
+        val layout = inflater.inflate(R.layout.custom_toast_lottie_layout, null)
+
+        // Customize the layout elements
+        val lottieAnimationView = layout.findViewById<LottieAnimationView>(R.id.lottieAnimationView)
+        val textViewMessage = layout.findViewById<TextView>(R.id.textViewMessage)
+
+        // Set the Lottie animation resource
+        lottieAnimationView.setAnimation(animationResId)
+        lottieAnimationView.playAnimation()
+
+        textViewMessage.text = message
+
+        val toast = Toast(requireContext())
+        toast.duration = Toast.LENGTH_SHORT
+        toast.view = layout
+        toast.show()
+    }
+
 
     override fun onStart() {
         super.onStart()
@@ -136,11 +167,19 @@ class LoginFragment : Fragment() {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         if (dataSnapshot.exists()) {
                             // User's profile data exists, navigate to the main activity
+                            showCustomLottieToast(
+                                R.raw.welcome, // Change to your desired icon
+                                "Welcome back...",
+                            )
                             val intent = Intent(requireActivity(), WorkSpace::class.java)
                             startActivity(intent)
                             requireActivity().finish()
                         } else {
                             // User's profile data doesn't exist, redirect to create user profile
+                            showCustomLottieToast(
+                                R.raw.donelottie, // Change to your desired icon
+                                "your Email is verified set your profile",
+                            )
                             val intent = Intent(requireActivity(), ProfileActivity::class.java)
                             startActivity(intent)
                             requireActivity().finish()
@@ -148,21 +187,47 @@ class LoginFragment : Fragment() {
                     }
 
                     override fun onCancelled(databaseError: DatabaseError) {
-                        Toast.makeText(
-                            requireContext(),
-                            "Check your Internet connection",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        showCustomSeekBarNotification(
+                            R.raw.networkerror, // Change to your desired icon
+                            "Oops...,Check your Internet connection",
+                            )
                     }
                 })
             } else {
-                Toast.makeText(
-                    requireContext(),
+                showCustomSeekBarNotification(
+                    R.raw.verify,// Change to your desired icon
                     "Please verify your email to continue",
-                    Toast.LENGTH_LONG
-                ).show()
+                )
                 fireBaseAuth.signOut()
             }
         }
+
+    }
+    private fun showCustomSeekBarNotification(animationResId: Int, message: String) {
+        // Inflate the custom SeekBar layout
+        val inflater = LayoutInflater.from(requireContext())
+        val customSeekBarView = inflater.inflate(R.layout.custom_seekbar_layout1, null)
+
+        // Customize the layout elements
+        val lottieAnimationView = customSeekBarView.findViewById<LottieAnimationView>(R.id.lottieAnimationView)
+        val textViewMessage = customSeekBarView.findViewById<TextView>(R.id.textViewMessage)
+
+        // Set Lottie animation resource
+        lottieAnimationView.setAnimation(animationResId) // Replace with your animation resource
+        lottieAnimationView.playAnimation()
+
+        // Set the message
+        textViewMessage.text = message
+
+        // Use a Dialog to display the custom SeekBar notification
+        val customSeekBarDialog = Dialog(requireContext())
+        customSeekBarDialog.setContentView(customSeekBarView)
+
+        // Optional: Set dialog properties (e.g., background, dimensions, etc.)
+        customSeekBarDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        customSeekBarDialog.window?.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+        // Show the custom SeekBar notification
+        customSeekBarDialog.show()
     }
 }

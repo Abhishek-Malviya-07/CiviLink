@@ -2,13 +2,18 @@
 
 package com.example.civilink
 
+import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.airbnb.lottie.LottieAnimationView
 import com.example.civilink.data.User
 import com.example.civilink.databinding.ActivityProfileBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -61,13 +66,14 @@ class ProfileActivity : AppCompatActivity() {
             val name = binding!!.name.text.toString()
             if(name.isEmpty()) {
                 binding!!.name.error = "please enter your name"
+                showCustomLottieToast(R.raw.verify,"please enter your name")
             }
-            if (selectedImage!= null)
-            {
+            if (selectedImage!= null&&name.isNotEmpty()) {
                 val reference = storage!!.reference.child("Profile").child(auth!!.uid!!)
                 reference.putFile(selectedImage!!).addOnCompleteListener{Task ->
                     if(Task.isSuccessful)
                     {
+                        showCustomSeekBarNotification(R.raw.donelottie,"Profile created successfully")
                         reference.downloadUrl.addOnSuccessListener { uri->
                             val imageUri = uri.toString()
                             uid = auth!!.uid
@@ -84,14 +90,18 @@ class ProfileActivity : AppCompatActivity() {
                                     finish()
                                 }
                         }
-                    }
-                    Toast.makeText(this,"Internet error",Toast.LENGTH_SHORT).show()
+                    }else
+                    showCustomSeekBarNotification(R.raw.networkerror,"Internet error")
                 }
             }
             else {
-                Toast.makeText(this,"select image",Toast.LENGTH_SHORT).show()
+                if(selectedImage==null&&name.isNotEmpty())
+                    showCustomSeekBarNotification(R.raw.verify,"select image And provide name")
+                else if(name.isNotEmpty())
+                    showCustomLottieToast(R.raw.verify,"please enter your name")
+                else if (selectedImage==null)
+                    showCustomSeekBarNotification(R.raw.verify,"select image")
             }
-
             if(selectedImage!=null&&name.isNotEmpty())
             {
                 dialog.show()
@@ -113,7 +123,7 @@ class ProfileActivity : AppCompatActivity() {
                 profileImage!!.setImageURI(selectedImage)
             }
             else
-            Toast.makeText(this,"select image",Toast.LENGTH_SHORT).show()
+                showCustomSeekBarNotification(R.raw.verify,"select image")
         }
     }
     override fun onStart() {
@@ -140,7 +150,7 @@ class ProfileActivity : AppCompatActivity() {
                     }
 
                     override fun onCancelled(databaseError: DatabaseError) {
-                        Toast.makeText(this@ProfileActivity,"Check your Internet connection",Toast.LENGTH_LONG).show()
+                        showCustomSeekBarNotification(R.raw.networkerror,"Check your Internet connection")
                     }
                 })
         }
@@ -148,5 +158,52 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(Intent(this@ProfileActivity, MainActivity::class.java))
             finish()
         }
+    }
+
+    private fun showCustomSeekBarNotification(animationResId: Int, message: String) {
+        // Inflate the custom SeekBar layout
+        val inflater = LayoutInflater.from(this)
+        val customSeekBarView = inflater.inflate(R.layout.custom_seekbar_layout1, null)
+
+        // Customize the layout elements
+        val lottieAnimationView = customSeekBarView.findViewById<LottieAnimationView>(R.id.lottieAnimationView)
+        val textViewMessage = customSeekBarView.findViewById<TextView>(R.id.textViewMessage)
+
+        // Set Lottie animation resource
+        lottieAnimationView.setAnimation(animationResId) // Replace with your animation resource
+        lottieAnimationView.playAnimation()
+
+        // Set the message
+        textViewMessage.text = message
+
+        // Use a Dialog to display the custom SeekBar notification
+        val customSeekBarDialog = Dialog(this)
+        customSeekBarDialog.setContentView(customSeekBarView)
+
+        // Optional: Set dialog properties (e.g., background, dimensions, etc.)
+        customSeekBarDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        customSeekBarDialog.window?.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+        // Show the custom SeekBar notification
+        customSeekBarDialog.show()
+    }
+    private fun showCustomLottieToast(animationResId: Int, message: String) {
+        val inflater = layoutInflater
+        val layout = inflater.inflate(R.layout.custom_toast_lottie_layout, null)
+
+        // Customize the layout elements
+        val lottieAnimationView = layout.findViewById<LottieAnimationView>(R.id.lottieAnimationView)
+        val textViewMessage = layout.findViewById<TextView>(R.id.textViewMessage)
+
+        // Set the Lottie animation resource
+        lottieAnimationView.setAnimation(animationResId)
+        lottieAnimationView.playAnimation()
+
+        textViewMessage.text = message
+
+        val toast = Toast(this)
+        toast.duration = Toast.LENGTH_LONG
+        toast.view = layout
+        toast.show()
     }
 }

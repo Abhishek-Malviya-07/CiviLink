@@ -46,7 +46,6 @@
                     android:backgroundTint="@color/white"
                     app:boxStrokeColor="@color/white"
                     app:boxStrokeWidth="1dp"
-                    app:errorEnabled="true"
                     app:hintTextColor="@color/white"
                     android:layout_height="match_parent">
 
@@ -77,7 +76,6 @@
                     android:layout_height="match_parent"
                     app:boxStrokeColor="@color/white"
                     app:boxStrokeWidth="1dp"
-                    app:errorEnabled="true"
                     app:endIconMode="password_toggle">
 
                     <com.google.android.material.textfield.TextInputEditText
